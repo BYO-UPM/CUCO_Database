@@ -31,7 +31,6 @@ df = df.drop(['Nº Historia'], axis=1)
 # Removing "PRE/2S/3M" column
 df = df.drop(['PRE/2S/3M'], axis=1)
 
-
 # Set as index the
 df = df.set_index(['ID'])
 
@@ -213,5 +212,5 @@ df_demographic.to_csv('data/metadata/demographic.csv')
 df_c1.to_csv('data/metadata/clinical_2wbs.csv')
 df_c2.to_csv('data/metadata/clinical_2was.csv')
 df_c3.to_csv('data/metadata/clinical_3mas.csv')
-df_random.to_csv('data/metadata/random.csv')
+df_random.to_csv('data/metadata/audio_comments.csv')
 
