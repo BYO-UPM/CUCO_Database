@@ -1,7 +1,7 @@
 import pandas as pd
 
 # ARguments
-translate = False
+translate = True
 
 # Read data which is in a xlsx
 rawdata = pd.read_excel('data/metadata/BBDDCUCO_Separados_Ene2017_kaldi_analisis_2.xlsx', sheet_name=None)
@@ -56,13 +56,13 @@ if translate:
     df_demographic.columns = column_names
 
     # Translater Gender and Diagnosis to english
-    df_demographic['Gender'] = df_demographic['Gender'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
+    df_demographic['GENDER'] = df_demographic['GENDER'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
 
-    df_demographic['Diagnosis'] = df_demographic['Diagnosis'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
+    df_demographic['DIAGNOSIS'] = df_demographic['DIAGNOSIS'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
 
 
 # Add tc senos column
-df_demographic['CT sinuses (lund-Mackay)'] = df["TC SENOS (LUND-MACKAY)"]
+df_demographic['CT SINUSES (LUND-MACKAY)'] = df["TC SENOS (LUND-MACKAY)"]
 
 # Describe the data:
 # How many patients are there?
@@ -104,8 +104,11 @@ if translate:
     column_names = [i.text for i in column_names]
     df_c1.columns = column_names
 
+    # The translator miss-translating A and S columns, we modify them manually
+    df_c1 = df_c1.rename(columns={'TO': 'A', 'YES': 'S'})
+
     # Translater Gender and Diagnosis to english
-    df_c1['OTROS'] = df_demographic['OTROS'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
+    df_c1['OTROS'] = df_c1['OTHERS'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
 
 # New column that says 2 weeks before surgery
 df_c1['time'] = '2wbs'
@@ -144,8 +147,11 @@ if translate:
     column_names = [i.text for i in column_names]
     df_c2.columns = column_names
 
+    # The translator miss-translating A and S columns, we modify them manually
+    df_c2 = df_c2.rename(columns={'TO': 'A', 'YES': 'S'})
+
     # Translater Gender and Diagnosis to english
-    df_c2['OTROS'] = df_demographic['OTROS'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
+    df_c2['OTHERS2'] = df_c2['OTHERS2'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text)
 
 # New column that says 2 weeks after surgery
 df_c2['time'] = '2was'
@@ -179,13 +185,16 @@ if translate:
     from googletrans import Translator
 
     translator = Translator()
-    column_names = list(df_c2.columns)
+    column_names = list(df_c3.columns)
     column_names = translator.translate(column_names, src='es', dest='en')
     column_names = [i.text for i in column_names]
-    df_c2.columns = column_names
+    df_c3.columns = column_names
+
+    # The translator miss-translating A and S columns, we modify them manually
+    df_c3 = df_c3.rename(columns={'TO': 'A', 'YES': 'S'})
 
     # Translater Gender and Diagnosis to english
-    df_c2['OTROS'] = df_demographic['OTROS'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text) 
+    df_c3['OTHERS3'] = df_c3['OTHERS3'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text) 
 
 # New column that says 2 weeks after surgery
 df_c3['time'] = '3mas'
@@ -202,15 +211,125 @@ df_random = df_random.loc[:, ~df_random.columns.isin(df_demographic.columns)]
 # Remove the first 4 columns and last column
 df_random = df_random.iloc[:, 4:-1]
 
+# Remove grupo column
+df_random = df_random.drop(['GRUPO'], axis=1)
+
 # Add group column
 df_random['GROUP'] = df['GROUP']
 
+if translate:
+    from googletrans import Translator
 
+    translator = Translator()
+    column_names = list(df_random.columns)
+    column_names = translator.translate(column_names, src='es', dest='en')
+    column_names = [i.text for i in column_names]
+    df_random.columns = column_names
+
+    # Translater Gender and Diagnosis to english
+    df_random['DIAGNOSIS'] = df_random['DIAGNOSIS'].apply(translator.translate, src='es', dest='en').apply(lambda x: x.text) 
+
+
+# ================== PATHS TO RAW AUDIO DATA ==================
+# For each clinical df, lets add the raw audio paths
+import numpy as np
+# The audio path is constructed as follows:
+# /data/audios/{group}/{audio_material}/{clinical_session}/{group}_ses{clinical_session}_{audio_material}_{id}.wav
+
+# The audio material is: a, e, i, o, u, aeiou, agua, brasero, concatenateread, dia, mesa, speech, u, un
+
+# Add a new column for each audio material
+audio_materials = ['a', 'e', 'i', 'o', 'u', 'aeiou', 'agua', 'brasero', 'concatenateread', 'dia', 'mesa', 'speech', 'u', 'un']
+for audio_material in audio_materials:
+    df_c1[audio_material] = np.nan
+    df_c2[audio_material] = np.nan
+    df_c3[audio_material] = np.nan
+
+
+# Lets walk the path
+import os
+from os import walk
+
+not_found_ids = []
+for (dirpath, dirnames, filenames) in walk('data/audios'):
+    for filename in filenames:
+        if filename.endswith('.wav'):
+            # Get the group
+            group = filename.split('_')[0]
+            # Subtitute group for the correct group name
+            if group == 'Amig':
+                group = 'Tonsillectomy'
+            elif group == 'Cens':
+                group = 'FESS'
+            elif group == 'Sept':
+                group = 'Septoplasty'
+            elif group == 'control':
+                group = 'Control'
+            # Get the audio material and make it lower
+            audio_material = filename.split('_')[2].lower()
+            # Get the clinical session
+            clinical_session = filename.split('_')[1]
+            # Get the id
+            id = int(filename.split('_')[3].split('.')[0])
+            # Get the path
+            path = os.path.join(dirpath, filename)
+
+            # Use clinical session to select the correct dataframe
+            if clinical_session == 'ses1':
+                df_c = df_c1
+            elif clinical_session == 'ses2':
+                df_c = df_c2
+            elif clinical_session == 'ses3':
+                df_c = df_c3
+
+            # Check if id exists in the dataframe
+            if id in df_c.index:
+                # Add to df_c[audio_material] the path, the id is the index
+                df_c.loc[id, audio_material] = path
+            else:
+                print('id {} not in dataframe'.format(id))
+                not_found_ids.append(id)
+
+# Remove duplicates from not_found_ids
+not_found_ids = list(set(not_found_ids))
+
+# Check if there exists any audio_material with nan path
+incomplete_ids = []
+for audio_material in audio_materials:
+    if df_c1[audio_material].isnull().values.any():
+        print('There are nan values in df_c1[{}]'.format(audio_material))
+        incomplete_ids.append(list(df_c1[df_c1[audio_material].isnull()].index))
+    if df_c2[audio_material].isnull().values.any():
+        print('There are nan values in df_c2[{}]'.format(audio_material))
+        incomplete_ids.append(list(df_c2[df_c2[audio_material].isnull()].index))
+    if df_c3[audio_material].isnull().values.any():
+        print('There are nan values in df_c3[{}]'.format(audio_material))
+        incomplete_ids.append(list(df_c3[df_c3[audio_material].isnull()].index))
+
+# Remove duplicates from incomplete_ids
+incomplete_ids_c1 = list(set(incomplete_ids[0]))
+incomplete_ids_c2 = list(set(incomplete_ids[1]))
+incomplete_ids_c3 = list(set(incomplete_ids[2]))
+
+# Print % of incomplete patients for clinical visit
+print('Percentage of incomplete patients for clinical visit 1: {}'.format(len(incomplete_ids_c1)/len(df_c1.index)))
+print('Percentage of incomplete patients for clinical visit 2: {}'.format(len(incomplete_ids_c2)/len(df_c2.index)))
+print('Percentage of incomplete patients for clinical visit 3: {}'.format(len(incomplete_ids_c3)/len(df_c3.index)))
+
+            
 # ================== STORE DATAFRAMES ==================
+# Sort all dataframes by id
+df_demographic = df_demographic.sort_index()
+df_c1 = df_c1.sort_index()
+df_c2 = df_c2.sort_index()
+df_c3 = df_c3.sort_index()
+df_random = df_random.sort_index()
+
 # Store the dataframes
 df_demographic.to_csv('data/metadata/demographic.csv')
 df_c1.to_csv('data/metadata/clinical_2wbs.csv')
 df_c2.to_csv('data/metadata/clinical_2was.csv')
 df_c3.to_csv('data/metadata/clinical_3mas.csv')
 df_random.to_csv('data/metadata/audio_comments.csv')
+
 
