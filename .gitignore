@@ -5,6 +5,7 @@ __pycache__/
 
 # Let /data/ and folders upload but not the folders inside
 /data/audio_features/*
+!/data/audio_features/README.md
 /data/audios/*
 /data/clinical/*
 /data/raw_data/*
