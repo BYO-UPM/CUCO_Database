@@ -3,8 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# All data in /data/
-/data/
+# Let /data/ and folders upload but not the folders inside
+/data/audio_features/*
+/data/audios/*
+/data/clinical/*
+/data/raw_data/*
+/data/metadata/*
+/data/unknown/*
 
 # C extensions
 *.so
