@@ -8,7 +8,17 @@ Welcome to the CUCO Database repository! This is a comprehensive collection of c
 
 The CUCO Database is organized into the following main folders:
 
-- **audio-features**: Contains precalculated audio features such as formants and antiformants.
+- **audio-features**: Contains precalculated audio features such as formants and antiformants. For each audio file located in "audios" there exists a .png image and a .mat matrix containing the frequency and bandwidth values for formant and antiformant trajectories of each speech waveform. A Kalman-based autoregressive moving average approach is employed [1-3].
+  - [1]   D. D. Mehta, D. Rudoy, and P. J. Wolfe, "Kalman-based autoregressive
+    moving average modeling and inference for formant and antiformant tracking,"
+    The Journal of the Acoustical Society of America, vol. 132, no. 3, pp. 1732-1746, 2012.
+  - [2]   D. Rudoy, D. N. Spendley, and P. J. Wolfe, "Conditionally linear
+    Gaussian models for estimating vocal tract resonances," Proceedings of
+    Interspeech, Antwerp, Belgium, 2007.
+  - [3]   D. Rudoy, "Nonstationary time series modeling with application to speech
+    signal processing," Doctor of Philosophy thesis, School of Engineering
+    and Applied Sciences, Harvard University, Cambridge, MA, 2010.
+    Chapter 3.
 - **audios**: Raw audio data organized by type of surgery and audio said:
   - control
     - a, e, i, o, u, aeiou, a1, a2, a3, agua, braseo, concatenateread, dia, mesa, speech
