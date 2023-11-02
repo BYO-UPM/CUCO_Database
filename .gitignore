@@ -6,6 +6,9 @@ __pycache__/
 # Let /data/ and folders upload but not the folders inside
 /data/audio_features/*
 
+# Remove karma code
+/karma_formantes_2.1/
+
 /data/audios/*
 /data/clinical/*
 /data/raw_data/*
@@ -15,6 +18,12 @@ __pycache__/
 !/**/README.md 
 # C extensions
 *.so
+
+# All matlab dependencies
+/cefclient/
+/resources
+/sys
+/ui
 
 # Distribution / packaging
 .Python
