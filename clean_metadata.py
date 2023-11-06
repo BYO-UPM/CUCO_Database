@@ -4,7 +4,7 @@ import pandas as pd
 translate = True
 
 # Read data which is in a xlsx
-rawdata = pd.read_excel('data/metadata/BBDDCUCO_Separados_Ene2017_kaldi_analisis_2.xlsx', sheet_name=None)
+rawdata = pd.read_excel('data/raw_data/BBDDCUCO_Separados_Ene2017_kaldi_analisis_2.xlsx', sheet_name=None)
 
 # Read the first 3 sheets
 df1 = rawdata['Amig-Palad']
@@ -40,7 +40,7 @@ df.columns = [x.upper() for x in df.columns]
 
 #  ================ Demographic data  =================
 # Generate a sub dataframe with the demographic data []'edad', 'Genero', 'Talla', 'Fecha exploracion', 'Diagnostico', 'Grupo', 'Fumador', 'SAOS', 'CPAP', 'Vprofesional'"]
-list_of_columns = ['edad', 'Genero', 'Talla', 'Fecha exploracion', 'Diagnostico', 'Grupo', 'Fumador', 'SAOS', 'CPAP', 'Vprofesional', 'Grado amigdalar', 'Fecha cirugía', 'COMENTARIO']
+list_of_columns = ['edad', 'Genero', 'Talla', 'Fecha exploracion', 'Diagnostico', 'Group', 'Fumador', 'SAOS', 'CPAP', 'Vprofesional', 'Grado amigdalar', 'Fecha cirugía', 'COMENTARIO']
 #Make upper
 list_of_columns = [x.upper() for x in list_of_columns]
 df_demographic = df[list_of_columns]
@@ -64,11 +64,7 @@ if translate:
 # Add tc senos column
 df_demographic['CT SINUSES (LUND-MACKAY)'] = df["TC SENOS (LUND-MACKAY)"]
 
-# Describe the data:
-# How many patients are there?
-# How many categorical and numerical variables are there?
-# How many missing values are there?
-# How many patients are there for each diagnosis?
+
 
 
 # ================== Clinical data: first attendance (2 weeks before surgery) ==================
@@ -325,11 +321,18 @@ df_c2 = df_c2.sort_index()
 df_c3 = df_c3.sort_index()
 df_random = df_random.sort_index()
 
+# Make all dataframes lowercase
+df_demographic = df_demographic.apply(lambda x: x.astype(str).str.lower())
+df_c1 = df_c1.apply(lambda x: x.astype(str).str.lower())
+df_c2 = df_c2.apply(lambda x: x.astype(str).str.lower())
+df_c3 = df_c3.apply(lambda x: x.astype(str).str.lower())
+df_random = df_random.apply(lambda x: x.astype(str).str.lower())
+
 # Store the dataframes
 df_demographic.to_csv('data/metadata/demographic.csv')
-df_c1.to_csv('data/metadata/clinical_2wbs.csv')
-df_c2.to_csv('data/metadata/clinical_2was.csv')
-df_c3.to_csv('data/metadata/clinical_3mas.csv')
+df_c1.to_csv('data/clinical/clinical_2wbs.csv')
+df_c2.to_csv('data/clinical/clinical_2was.csv')
+df_c3.to_csv('data/clinical/clinical_3mas.csv')
 df_random.to_csv('data/metadata/audio_comments.csv')
 
 
