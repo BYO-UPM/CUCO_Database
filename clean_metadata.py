@@ -69,26 +69,33 @@ df_demographic['CT SINUSES (LUND-MACKAY)'] = df["TC SENOS (LUND-MACKAY)"]
 
 # ================== Clinical data: first attendance (2 weeks before surgery) ==================
 # Generate a sub dataframe with the clinical data [ 'Fecha exploracion', 'Peso', 'GRABS.1', 'Test Nasalidad', 'Nasometria", 'OTROS' ]
-listofc = ['Group', 'Fecha exploracion', 'Peso', 'GRABS.1', 'Test nasalidad', 'Nasometria', 'OTROS']
+listofc = ['Group', 'Fecha exploracion', 'Peso', 'GRABS', 'Test nasalidad', 'Nasometria', 'OTROS']
 #Make upper
 listofc = [x.upper() for x in listofc]
 df_c1 = df[listofc]
 
 # For control people fill up GRABS.1 with five 00000
-df_c1.loc[df_c1['GROUP'] == 'Control', 'GRABS.1'] = '00000'
+df_c1.loc[df_c1['GROUP'] == 'Control', 'GRABS'] = '00000'
 
 # Make GRABS.1 to str
-df_c1['GRABS.1'] = df_c1['GRABS.1'].astype(str)
+df_c1['GRABS'] = df_c1['GRABS'].astype(str)
+
+# if GRABS.1 is "0" substitute it with "00000"
+df_c1.loc[df_c1['GRABS'] == '0', 'GRABS'] = "00000"
+df_c1.loc[df_c1['GRABS'] == '0.0', 'GRABS'] = "00000"
+
+# Subtitute nan with -----
+df_c1 = df_c1.replace('nan', '-----')
 
 # Split grabs.1 into G R A B S
-df_c1['G'] = df_c1['GRABS.1'].str[0]
-df_c1['R'] = df_c1['GRABS.1'].str[1]
-df_c1['A'] = df_c1['GRABS.1'].str[2]
-df_c1['B'] = df_c1['GRABS.1'].str[3]
-df_c1['S'] = df_c1['GRABS.1'].str[4]
+df_c1['G'] = df_c1['GRABS'].str[0]
+df_c1['R'] = df_c1['GRABS'].str[1]
+df_c1['A'] = df_c1['GRABS'].str[2]
+df_c1['B'] = df_c1['GRABS'].str[3]
+df_c1['S'] = df_c1['GRABS'].str[4]
 
 # Remove GRABS.1
-df_c1 = df_c1.drop(['GRABS.1'], axis=1)
+df_c1 = df_c1.drop(['GRABS'], axis=1)
 
 
 if translate:
@@ -123,6 +130,13 @@ df_c2.loc[df_c2['GROUP'] == 'Control', 'GRABS2'] = '00000'
 
 # Make GRABS.1 to str
 df_c2['GRABS2'] = df_c2['GRABS2'].astype(str)
+
+# if GRABS.1 is "0" substitute it with "00000"
+df_c2.loc[df_c2['GRABS2'] == '0', 'GRABS2'] = "00000"
+df_c2.loc[df_c2['GRABS2'] == '0.0', 'GRABS2'] = "00000"
+
+# Subtitute nan with -----
+df_c2 = df_c2.replace('nan', '-----')
 
 # Split grabs.1 into G R A B S
 df_c2['G'] = df_c2['GRABS2'].str[0]
@@ -167,12 +181,20 @@ df_c3.loc[df_c3['GROUP'] == 'Control', 'GRABS3'] = '00000'
 # Make GRABS.1 to str
 df_c3['GRABS3'] = df_c3['GRABS3'].astype(str)
 
+# if GRABS.1 is "0" substitute it with "00000"
+df_c3.loc[df_c3['GRABS3'] == '0', 'GRABS3'] = "00000"
+df_c3.loc[df_c3['GRABS3'] == '0.0', 'GRABS3'] = "00000"
+
+# Subtitute nan with -----
+df_c3 = df_c3.replace('nan', '-----')
+
 # Split grabs.1 into G R A B S
 df_c3['G'] = df_c3['GRABS3'].str[0]
 df_c3['R'] = df_c3['GRABS3'].str[1]
 df_c3['A'] = df_c3['GRABS3'].str[2]
 df_c3['B'] = df_c3['GRABS3'].str[3]
 df_c3['S'] = df_c3['GRABS3'].str[4]
+
 
 # Remove GRABS.1
 df_c3 = df_c3.drop(['GRABS3'], axis=1)
@@ -207,8 +229,6 @@ df_random = df_random.loc[:, ~df_random.columns.isin(df_demographic.columns)]
 # Remove the first 4 columns and last column
 df_random = df_random.iloc[:, 4:-1]
 
-# Remove grupo column
-df_random = df_random.drop(['GRUPO'], axis=1)
 
 # Add group column
 df_random['GROUP'] = df['GROUP']
@@ -235,7 +255,7 @@ import numpy as np
 # The audio material is: a, e, i, o, u, aeiou, agua, brasero, concatenateread, dia, mesa, speech, u, un
 
 # Add a new column for each audio material
-audio_materials = ['a', 'e', 'i', 'o', 'u', 'aeiou', 'agua', 'brasero', 'concatenateread', 'dia', 'mesa', 'speech', 'u', 'un']
+audio_materials = ['a', 'e', 'i', 'o', 'u', 'agua', 'brasero', 'dia', 'mesa', 'speech', 'u', 'un']
 for audio_material in audio_materials:
     df_c1[audio_material] = np.nan
     df_c2[audio_material] = np.nan
@@ -248,6 +268,9 @@ from os import walk
 
 not_found_ids = []
 for (dirpath, dirnames, filenames) in walk('data/audios'):
+    # Skip the data/audios/*/raw/** folders
+    if 'raw' in dirpath:
+        continue
     for filename in filenames:
         if filename.endswith('.wav'):
             # Get the group
@@ -312,8 +335,30 @@ print('Percentage of incomplete patients for clinical visit 1: {}'.format(len(in
 print('Percentage of incomplete patients for clinical visit 2: {}'.format(len(incomplete_ids_c2)/len(df_c2.index)))
 print('Percentage of incomplete patients for clinical visit 3: {}'.format(len(incomplete_ids_c3)/len(df_c3.index)))
 
-            
+
 # ================== STORE DATAFRAMES ==================
+# Normalise all nan values to np.nan (NaN, "-", "nan", "nannan", "nat", "na")
+def replace_nan(df):
+    df = df.replace('nan', np.nan)
+    df = df.replace('nannan', np.nan)
+    df = df.replace('nat', np.nan)
+    df = df.replace('na', np.nan)
+    df = df.replace('-', np.nan)
+    df = df.replace('-', np.nan)
+    df = df.replace('', np.nan)
+    df = df.replace(' ', np.nan)
+
+    return df
+
+df_demographic = replace_nan(df_demographic)
+df_c1 = replace_nan(df_c1)
+df_c2 = replace_nan(df_c2)
+df_c3 = replace_nan(df_c3)
+df_random = replace_nan(df_random)
+
+
+
+
 # Sort all dataframes by id
 df_demographic = df_demographic.sort_index()
 df_c1 = df_c1.sort_index()
