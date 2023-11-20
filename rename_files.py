@@ -1,4 +1,4 @@
-# Rename all files to match the paper description
+# Script to modify the names of the audio files in the data_final/audios folder to match the codificatino followed in the paper.
 
 
 # Read all audio files and folders under "data/data_final/audios". Then for each folder and file, rename:
@@ -27,3 +27,4 @@ for f in full_path:
     new_name = re.sub('Amig', 'Tonsill', new_name)
     # Rename the file
     shutil.move(f, new_name)
+

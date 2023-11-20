@@ -1,4 +1,5 @@
 % processAllAudioFiles.m
+% Script to launch the karma_byo algorithm to extract formants and their trajectories from all WAV files in a directory
 function processAllAudioFiles(audioDir, numFormants, numAntiF, aParams, cepOrder, cepType, algFlag)
     % Add any required paths
     addpath(genpath('/home/alexjorguer/GitHub/CUCOdb/karma_formantes_2.1'));

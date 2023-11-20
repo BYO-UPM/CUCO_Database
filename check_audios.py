@@ -1,3 +1,6 @@
+# This code was used to check if the audios /a/ were extracted from /aeiou/ correctly
+
+
 import librosa
 
 # Read "data/audios/control/aeiou/control_ses1_aeiou_0012.wav"
@@ -8,8 +11,6 @@ audio, sr = librosa.load(audio_path, sr=44100)
 
 # Check if the first part of the audio (correponding to the /a/ vowel) is equal to the audio located in "data/audios/control/a/1/control_ses1_a_0012.wav"
 audio_a, sr_a = librosa.load('data/audios/control/a/1/control_ses1_a_0012.wav', sr=44100)
-
-
 
 audio1 = audio[:len(audio_a)*2]
 audio2 = audio_a

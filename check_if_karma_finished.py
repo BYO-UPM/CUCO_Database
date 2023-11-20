@@ -1,6 +1,6 @@
+# Just a code to check if the karma process finished, it took almost 2 days to finish
+
 import os
-
-
 # Check if the karma process is finished
 
 # To do so, lets walk all the data/audios path and check if for each .wav there exists a .png and .mat with the same name

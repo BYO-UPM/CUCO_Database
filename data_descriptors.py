@@ -1,3 +1,5 @@
+# Naive code to extract data descriptors such as statistics.
+
 import pandas as pd
 import numpy as np
 

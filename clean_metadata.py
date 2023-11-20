@@ -1,3 +1,7 @@
+# First version of the script to clean the metadata and translate it to english. Several modifications were done posteriorly using rename_files.py and rename_paths.py.
+
+
+
 import pandas as pd
 
 # ARguments
