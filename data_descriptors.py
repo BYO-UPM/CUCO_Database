@@ -78,7 +78,6 @@ cdpost3 = pd.read_csv('data/clinical/clinical_3mas.csv')
 # cdpost3.to_csv('data/clinical/clinical_3mas.csv', index=False)
 
 
-
 # For each dataframe:
 # 1. Group by GROUP column
 # 2. Aggregate by mean and std for columns 3, 4 and 5
