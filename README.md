@@ -1,6 +1,6 @@
 # CUCO Database
 
-![CUCO Database Logo](your-logo.png) `<!-- Add your logo here if you have one -->`
+![CUCO Database Logo](logo_ai.png)
 
 Welcome to the CUCO Database repository! This is a comprehensive collection of code and data used for cleaning and calculating the CUCO database. The database comprises recordings of patients and control individuals, with voice samples taken at three different time points: 2 weeks before surgery, 2 weeks after surgery, and 3 months after surgery. The surgeries include FESS, Tonsillectomy, Septoplasty, and a control group.
 
