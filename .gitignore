@@ -19,7 +19,7 @@ __pycache__/
 /data/metadata/*
 /data/unknown/*
 
-!/**/**/README.md 
+!/**/**/**/README.md 
 # C extensions
 *.so
 
