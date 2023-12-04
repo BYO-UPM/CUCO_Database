@@ -8,7 +8,7 @@ Welcome to the CUCO Database repository! This is a comprehensive collection of c
 
 The CUCO Database is organized into the following main folders:
 
-- **audio-features**: Contains precalculated audio features such as formants and antiformants. For each audio file located in "audios" there exists a .png image and a .mat matrix containing the frequency and bandwidth values for formant and antiformant trajectories of each speech waveform. A Kalman-based autoregressive moving average approach is employed [1-3].
+- **Audio Features**: Contains precalculated audio features such as formants and antiformants. For each audio file located in "Audios" there exists a .png image and a .pkl dictionary containing the frequency and bandwidth values for formant and antiformant trajectories of each speech waveform. A Kalman-based autoregressive moving average approach is employed [1-3].
   - [1]   D. D. Mehta, D. Rudoy, and P. J. Wolfe, "Kalman-based autoregressive
     moving average modeling and inference for formant and antiformant tracking,"
     The Journal of the Acoustical Society of America, vol. 132, no. 3, pp. 1732-1746, 2012.
@@ -20,13 +20,13 @@ The CUCO Database is organized into the following main folders:
     and Applied Sciences, Harvard University, Cambridge, MA, 2010.
     Chapter 3.
 - **audios**: Raw audio data organized by type of surgery and audio said:
-  - control
+  - Contr
     - a, e, i, o, u, aeiou, a1, a2, a3, agua, braseo, concatenateread, dia, mesa, speech
-  - fess
-  - septo
-  - tonsil
-- **clinical**: Contains clinical data recorded at each hospital visit (three times: pre-surgery, post-surgery, 3 months post-surgery).
-- **metadata**: Provides metadata for each patient in the database.
+  - Fess
+  - Sept
+  - Tonsill
+- **Clinical**: Contains clinical data recorded at each hospital visit (three times: pre-surgery, post-surgery, 3 months post-surgery).
+- **Metadata**: Provides metadata for each patient in the database.
   - comments on the audio files
   - demographic data
 
