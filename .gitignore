@@ -5,6 +5,8 @@ __pycache__/
 
 # Let /data/ and folders upload but not the folders inside
 /data/audio_features/*
+!*.md 
+/data/cuco_db.zip
 /old/
 # Remove karma code
 /karma_formantes_2.1/
@@ -19,7 +21,7 @@ __pycache__/
 /data/metadata/*
 /data/unknown/*
 
-!/**/**/**/README.md 
+
 # C extensions
 *.so
 

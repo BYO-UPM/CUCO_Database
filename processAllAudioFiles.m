@@ -28,4 +28,4 @@ function processAllAudioFiles(audioDir, numFormants, numAntiF, aParams, cepOrder
     end
 end
 
-
+% matlab -nodisplay -r "addpath('/home/alexjorguer/GitHub/CUCOdb/karma_formantes_2.1'); processAllAudioFiles('data/data_final/Audios', 3, 2, struct('peCoeff', 0.7, 'wType', 'hamming', 'wLengthMS', 20, 'wOverlap', 0.5, 'lpcOrder', 12, 'zOrder', 0, 'fs', 44100), 15, 1, 2); exit"
