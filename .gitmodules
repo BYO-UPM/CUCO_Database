@@ -1,0 +1,3 @@
+[submodule "Formant-Tracking"]
+	path = Formant-Tracking
+	url = https://github.com/BYO-UPM/Formant-Tracking.git
