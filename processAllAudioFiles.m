@@ -2,7 +2,7 @@
 % Script to launch the karma_byo algorithm to extract formants and their trajectories from all WAV files in a directory
 function processAllAudioFiles(audioDir, numFormants, numAntiF, aParams, cepOrder, cepType, algFlag)
     % Add any required paths
-    addpath(genpath('./GitHub/CUCOdb/karma_formantes_2.1'));
+    addpath(genpath('./GitHub/CUCOdb/Formant-Tracking'));
 
     % Find all WAV files in the specified directory and its subdirectories
     wavFiles = dir(fullfile(audioDir, '**', '*.wav'));
@@ -28,4 +28,4 @@ function processAllAudioFiles(audioDir, numFormants, numAntiF, aParams, cepOrder
     end
 end
 
-% matlab -nodisplay -r "addpath('/home/alexjorguer/GitHub/CUCOdb/karma_formantes_2.1'); processAllAudioFiles('data/data_final/Audios', 3, 2, struct('peCoeff', 0.7, 'wType', 'hamming', 'wLengthMS', 20, 'wOverlap', 0.5, 'lpcOrder', 12, 'zOrder', 0, 'fs', 44100), 15, 1, 2); exit"
+% matlab -nodisplay -r "addpath('/home/alexjorguer/GitHub/CUCOdb/Formant-Tracking'); processAllAudioFiles('data/data_final/Audios', 3, 2, struct('peCoeff', 0.7, 'wType', 'hamming', 'wLengthMS', 20, 'wOverlap', 0.5, 'lpcOrder', 12, 'zOrder', 0, 'fs', 44100), 15, 1, 2); exit"
