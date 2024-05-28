@@ -132,4 +132,15 @@ def homogenize_filenames(directory):
 directory = 'monologues_transcripted'  # Directory containing the files
 homogenize_filenames(directory)
 
+# The following code will load the audio files:
+def read_audio(path):
+    y, sr = librosa.load(path, sr=44100)
+    return y, sr
+
+df = pd.DataFrame(columns=['audiopath','audio_raw','label'])
+df['audiopath'] = audios
+# Get SR and audio in two columns
+df[['audio_raw', 'sr']] = df['audiopath'].apply(lambda x: pd.Series(read_audio(x)))
+df['label'] = df['audiopath'].apply(lambda x: x.split('/')[3])
+
 
