@@ -8,7 +8,7 @@ Welcome to the CUCO Database repository! This is a comprehensive collection of c
 
 The CUCO Database is organized into the following main folders:
 
-- **Audio Features**: Contains precalculated audio features such as formants and antiformants. For each audio file located in "Audios" there exists a .png image and a .pkl dictionary containing the frequency and bandwidth values for formant and antiformant trajectories of each speech waveform. A Kalman-based autoregressive moving average approach is employed [1-3].
+- **Audio Features**: Contains precalculated audio features such as formants and antiformants. For each session, there is a .csv file with the pre-computed audio features, detailed in the paper, for the sustained vowels. Moreover, for each audio file located in "Audios" there exists a .png image and a .pkl dictionary containing the frequency and bandwidth values for formant and antiformant trajectories of each speech waveform. A Kalman-based autoregressive moving average approach is employed [1-3].
   - [1]   D. D. Mehta, D. Rudoy, and P. J. Wolfe, "Kalman-based autoregressive
     moving average modeling and inference for formant and antiformant tracking,"
     The Journal of the Acoustical Society of America, vol. 132, no. 3, pp. 1732-1746, 2012.
@@ -21,14 +21,17 @@ The CUCO Database is organized into the following main folders:
     Chapter 3.
 - **audios**: Raw audio data organized by type of surgery and audio said:
   - Contr
-    - a, e, i, o, u, aeiou, a1, a2, a3, agua, braseo, concatenateread, dia, mesa, speech
-  - Fess
-  - Sept
-  - Tonsill
-- **Clinical**: Contains clinical data recorded at each hospital visit (three times: pre-surgery, post-surgery, 3 months post-surgery).
+    - Vowels: Contains the audio files for each one-second utterance of the vowels.
+    - Sustained vowels: Contains the audio files for each three-second sustained vowel.
+    - TDU: Contains the audio files for each TDU task.
+    - Speech: Contains the audio for the free speech task.
+    - Raw: Contains the raw audio files for each patient.
+  - Fess: equal to Contr
+  - Sept: equal to Contr
+  - Tonsill: equal to Contr
+- **Clinical**: Contains clinical data recorded at each hospital visit (three times: 2 weeks pre-surgery, 2 weeks post-surgery, 3 months post-surgery). It also contains demographic data of each patient.
 - **Metadata**: Provides metadata for each patient in the database.
   - comments on the audio files
-  - demographic data
 
 ## Installation
 
@@ -63,7 +66,7 @@ Learn how to use the data and code in this repository:
 
 ## License
 
-Not yet
+MIT LICENSE
 
 ## Credits
 
@@ -73,7 +76,7 @@ We'd like to acknowledge and express our gratitude to everyone who has contribut
 
 If you have questions or need further assistance, please feel free to reach out to us:
 
-* Email: alejandro.guerrero@upm.es
-* GitHub Issues: [Report an Issue](https://github.com/aguerrerolopez/CUCODB/issues)
+* Email: alejandro.guerrero@upm.es, ignacio.godino@upm.es
+* GitHub Issues: [Report an Issue](https://github.com/BYO-UPM/CUCO_Database/issues)
 
 Thank you for using the CUCO Database! We hope you find it valuable for your research and projects.
