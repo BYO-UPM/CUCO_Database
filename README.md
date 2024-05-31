@@ -35,7 +35,7 @@ The CUCO Database is organized into the following main folders:
 The CUCO Database is available on Zenodo with a Digital Object Identifier (DOI) to ensure easy access and citation. To access the database, follow these steps:
 
 1. Visit the Zenodo page for the CUCO Database using the following link:
-   [CUCO Database on Zenodo](https://zenodo.org/your-doi-here) not yet available ;)
+   [CUCO Database on Zenodo](https://zenodo.org/records/10256803)
 2. You can download the dataset files and code directly from Zenodo.
 
 For more information and specific setup instructions, refer to the dataset documentation on Zenodo.
@@ -47,9 +47,9 @@ For more information and specific setup instructions, refer to the dataset docum
 If you use the CUCO Database in your research or projects, we kindly request that you cite it to give credit to the contributors. Please use the following references to cite the database:
 
 1. **Zenodo Dataset**: To cite the dataset available on Zenodo, use the provided DOI:
-   1. Author(s). (Year). CUCO Database. Zenodo. DOI: [your-doi-here]
-2. **Scientific Data Paper**: Additionally, we encourage you to cite the associated paper in XXXXX journal where the database is described in detail
-   1. Author(s). (Year). Title of the Paper. Journal, Volume(Number), Page Numbers. DOI: [paper-doi-here]
+   1. Hernández-García, E., Guerrero-López, A., Arias-Londoño, J. D., & Godino Llorente, J. I. (2024). CUCO Database: A voice and speech corpus of patients who underwent upper airway surgery in pre- and post-operative states (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.10256803
+2. **Scientific Data Paper**: Additionally, we encourage you to cite the associated paper in Scientific Data journal where the database is described in detail
+   1. Not yet accepted, but hopefully soon ;)
 
 Citing both the Zenodo dataset and the journal paper helps acknowledge the work of the contributors and ensures proper recognition in the academic community.
 
