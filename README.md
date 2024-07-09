@@ -50,9 +50,10 @@ For more information and specific setup instructions, refer to the dataset docum
 If you use the CUCO Database in your research or projects, we kindly request that you cite it to give credit to the contributors. Please use the following references to cite the database:
 
 1. **Zenodo Dataset**: To cite the dataset available on Zenodo, use the provided DOI:
-   1. Hernández-García, E., Guerrero-López, A., Arias-Londoño, J. D., & Godino Llorente, J. I. (2024). CUCO Database: A voice and speech corpus of patients who underwent upper airway surgery in pre- and post-operative states (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.10256803
-2. **Scientific Data Paper**: Additionally, we encourage you to cite the associated paper in Scientific Data journal where the database is described in detail
-   1. Not yet accepted, but hopefully soon ;)
+   1. Hernández-García, E., Guerrero-López, A., Arias-Londoño, J. D., & Godino Llorente, J. I. (2024). CUCO Database: A voice and speech corpus of patients who underwent upper airway surgery in pre- and post-operative states [Data set]. Zenodo. https://doi.org/10.5281/zenodo.10256802
+2. **Scientific Data Paper**: Additionally, cite the associated paper in Scientific Data journal where the database is described in detail
+   1. [Scientific Data Paper](https://www.nature.com/articles/s41597-024-03540-5#Sec9)
+   2. Hernández-García, E., Guerrero-López, A., Arias-Londoño, J.D. et al. A voice and speech corpus of patients who underwent upper airway surgery in pre- and post-operative states. Sci Data 11, 746 (2024). https://doi.org/10.1038/s41597-024-03540-5
 
 Citing both the Zenodo dataset and the journal paper helps acknowledge the work of the contributors and ensures proper recognition in the academic community.
 
